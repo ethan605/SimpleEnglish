@@ -1,0 +1,11 @@
+{
+  "name": "simple-english",
+  "version": "2.1.0",
+  "main": ".opencode/plugins/simple-english.js",
+  "files": [
+    ".opencode/package.json",
+    ".opencode/plugins",
+    "prompts",
+    "skills"
+  ]
+}
