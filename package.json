@@ -1,11 +1,15 @@
 {
   "name": "simple-english",
   "version": "2.1.0",
-  "main": ".opencode/plugins/simple-english.js",
+  "main": ".opencode/plugins/simple-english/index.js",
   "files": [
     ".opencode/package.json",
     ".opencode/plugins",
     "prompts",
     "skills"
-  ]
+  ],
+  "dependencies": {
+    "@opencode/plugin": "2.0.25",
+    "yaml": "2.9.1"
+  }
 }

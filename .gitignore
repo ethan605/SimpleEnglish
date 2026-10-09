@@ -1,4 +1,5 @@
 __pycache__/
+node_modules/
 *.pyc
 
 # tools/ste-dictionary: generated from your own copy of the PDF
