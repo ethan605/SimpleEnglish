@@ -21,7 +21,7 @@
   <a href="https://trendshift.io/repositories/97933?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-97933" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/97933/daily" alt="AminBlg%2FSimpleEnglish | Trendshift" width="250" height="55"/></a>
 </p>
 
-Works in every agent that reads the [Agent Skills standard](https://agentskills.io): Claude Code, Cursor, VS Code Copilot, OpenAI Codex, Gemini CLI, Goose, OpenCode, and about 25 more. One folder, no dependencies, MIT.
+Works in every agent that reads the [Agent Skills standard](https://agentskills.io): Claude Code, Cursor, VS Code Copilot, OpenAI Codex, Gemini CLI, Goose, OpenCode, and about 25 more. The skill itself is one folder with no dependencies; the OpenCode plugin has separate runtime dependencies. MIT.
 
 ## Install
 
@@ -53,6 +53,36 @@ Codex asks you to trust the hook before its first run. The hooks need Node.js. D
 No skill support? Paste the rule block of [`prompts/system-prompt.md`](prompts/system-prompt.md) into your system prompt, `AGENTS.md`, or `.cursorrules`. The page ends with a 60-token version for tight budgets.
 
 Then ask for any technical writing, or say "rewrite this with simple-english".
+
+## OpenCode v2 plugin
+
+The plugin supports OpenCode v2.0.25 only. It does not support v1. This branch is not published, so do not install it from a remote package reference or add it to global OpenCode settings.
+
+For a source checkout, run `npm ci` in the repository root. Open that checkout as your workspace. OpenCode discovers `.opencode/plugins/simple-english` automatically.
+
+For a separate local copy, add its absolute plugin directory to the project's `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": ["/absolute/path/to/simple-english/.opencode/plugins/simple-english"]
+}
+```
+
+The configured directory must contain `index.js`. Choose automatic discovery or the explicit directory entry. Do not configure the same local copy twice.
+
+After you publish a fork, you can use its Git reference as a package entry:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": ["github:<fork-owner>/SimpleEnglish#<published-ref>"]
+}
+```
+
+Replace both placeholders with your fork owner and a published branch, tag, or commit. Do not use this form before the fork is available.
+
+The plugin adds context for primary agents and agents with mode `all`. It skips subagents, child sessions, and auxiliary requests such as title generation. To diagnose a missing plugin, check that OpenCode is v2.0.25, confirm the configured directory contains `index.js`, and check OpenCode logs for plugin load warnings. `opencode debug paths` shows the active config and data directories.
 
 ## See it
 

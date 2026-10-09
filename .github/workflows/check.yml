@@ -9,7 +9,15 @@ jobs:
         with: { node-version: 22 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
+      - run: npm ci
+      - name: Install pinned OpenCode CLI
+        run: |
+          cli_prefix="$RUNNER_TEMP/opencode-cli-2.0.25"
+          npm install --prefix "$cli_prefix" --no-save --no-package-lock --no-audit --no-fund @opencode/cli@2.0.25
+          test "$("$cli_prefix/node_modules/.bin/opencode" --version)" = "opencode v2.0.25"
+          echo "$cli_prefix/node_modules/.bin" >> "$GITHUB_PATH"
+      - run: node evals/opencode_v2_smoke.mjs
       - run: python3 evals/ste_lint.py --self-test
-      - run: node --test src/hooks/simple-english-activate.test.js
+      - run: node --test .opencode/plugins/simple-english/test/*.test.js src/hooks/simple-english-activate.test.js
       - run: python3 src/hooks/test_lint_hook.py
       - run: python3 evals/check_numbers.py
